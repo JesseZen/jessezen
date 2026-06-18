@@ -28,7 +28,7 @@ jobs:
             // --- Recent Activity ---
             const events = await github.rest.activity.listPublicEventsForUser({
               username: username,
-              per_page: 20
+              per_page: 30
             });
 
             const activityLines = [];
@@ -41,41 +41,39 @@ jobs:
               if (activityLines.length >= 8) break;
 
               if (type === 'PushEvent') {
-                const msg = (event.payload.commits?.[0]?.message || 'commit').split('\n')[0];
-                if (!seenRepos.has(repoFullName)) {
-                  activityLines.push(`- 📝 Pushed \`${msg}\` in [${repo}](https://github.com/${repoFullName})`);
-                  seenRepos.add(repoFullName);
+                const commits = event.payload.commits || [];
+                // Show actual commit messages, up to 2 per event
+                for (const c of commits.slice(0, 2)) {
+                  if (activityLines.length >= 8) break;
+                  const msg = c.message.split('\n')[0];
+                  if (!msg) continue;
+                  const shortMsg = msg.length > 50 ? msg.slice(0, 47) + '…' : msg;
+                  activityLines.push(`- 📝 \`${shortMsg}\` → [${repo}](https://github.com/${repoFullName})`);
                 }
-              } else if (type === 'IssuesEvent') {
+                seenRepos.add(repoFullName);
+              } else if (type === 'IssuesEvent' && !seenRepos.has(repoFullName)) {
                 const title = event.payload.issue?.title || 'an issue';
                 const url = event.payload.issue?.html_url || '#';
-                if (!seenRepos.has(repoFullName)) {
-                  activityLines.push(`- 🐛 ${event.payload.action} issue [${title}](${url})`);
-                  seenRepos.add(repoFullName);
-                }
-              } else if (type === 'PullRequestEvent') {
+                const shortTitle = title.length > 50 ? title.slice(0, 47) + '…' : title;
+                activityLines.push(`- 🐛 ${event.payload.action} issue [${shortTitle}](${url})`);
+                seenRepos.add(repoFullName);
+              } else if (type === 'PullRequestEvent' && !seenRepos.has(repoFullName)) {
                 const title = event.payload.pull_request?.title || 'a PR';
                 const url = event.payload.pull_request?.html_url || '#';
-                if (!seenRepos.has(repoFullName)) {
-                  activityLines.push(`- 🔀 ${event.payload.action} PR [${title}](${url})`);
-                  seenRepos.add(repoFullName);
-                }
-              } else if (type === 'WatchEvent') {
-                if (!seenRepos.has(repoFullName)) {
-                  activityLines.push(`- ⭐ Starred [${repo}](https://github.com/${repoFullName})`);
-                  seenRepos.add(repoFullName);
-                }
-              } else if (type === 'CreateEvent' && event.payload.ref_type === 'repository') {
-                if (!seenRepos.has(repoFullName)) {
-                  activityLines.push(`- 🆕 Created [${repo}](https://github.com/${repoFullName})`);
-                  seenRepos.add(repoFullName);
-                }
+                const shortTitle = title.length > 50 ? title.slice(0, 47) + '…' : title;
+                activityLines.push(`- 🔀 ${event.payload.action} PR [${shortTitle}](${url})`);
+                seenRepos.add(repoFullName);
+              } else if (type === 'WatchEvent' && !seenRepos.has(repoFullName)) {
+                activityLines.push(`- ⭐ Starred [${repo}](https://github.com/${repoFullName})`);
+                seenRepos.add(repoFullName);
+              } else if (type === 'CreateEvent' && event.payload.ref_type === 'repository' && !seenRepos.has(repoFullName)) {
+                activityLines.push(`- 🆕 Created [${repo}](https://github.com/${repoFullName})`);
+                seenRepos.add(repoFullName);
               }
             }
             sections.push('### 🕐 Recent Activity\n' + (activityLines.length > 0 ? activityLines.join('\n') : '- *No recent public activity*'));
 
-            // --- Top Repos (by stars, forks, updated) ---
-            // Paginate to get all repos
+            // --- Top Repos (by stars, forks) ---
             let allRepos = [];
             let page = 1;
             while (true) {
@@ -92,26 +90,30 @@ jobs:
               page++;
             }
 
-            // Sort by a composite: stars*3 + forks, pick top 6
             const scored = allRepos
-              .filter(r => !r.fork && r.name !== username) // skip forks & profile repo
+              .filter(r => !r.fork && r.name !== username)
               .map(r => ({
                 name: r.name,
-                desc: (r.description || '').slice(0, 60),
+                desc: r.description || '',
                 url: r.html_url,
                 stars: r.stargazers_count,
                 forks: r.forks_count,
-                lang: r.language,
-                score: r.stargazers_count * 3 + r.forks_count
+                lang: r.language
               }))
-              .sort((a, b) => b.score - a.score)
+              .sort((a, b) => (b.stars * 3 + b.forks) - (a.stars * 3 + a.forks))
               .slice(0, 6);
 
             const repoLines = scored.map(r => {
-              const starBadge = r.stars > 0 ? ` ⭐ ${r.stars}` : '';
-              const forkBadge = r.forks > 0 ? ` 🍴 ${r.forks}` : '';
-              const langBadge = r.lang ? ` \`${r.lang}\`` : '';
-              return `- **[${r.name}](${r.url})**${langBadge}${starBadge}${forkBadge} — ${r.desc}`;
+              const parts = [`**[${r.name}](${r.url})**`];
+              if (r.lang) parts.push(`\`${r.lang}\``);
+              if (r.stars > 0) parts.push(`⭐ ${r.stars}`);
+              if (r.forks > 0) parts.push(`🍴 ${r.forks}`);
+              // Only add description if it exists and is meaningful
+              if (r.desc) {
+                const shortDesc = r.desc.length > 55 ? r.desc.slice(0, 52) + '…' : r.desc;
+                parts.push(`— ${shortDesc}`);
+              }
+              return '- ' + parts.join(' ');
             });
             sections.push('### 🏆 Top Repos\n' + (repoLines.length > 0 ? repoLines.join('\n') : '- *No repos yet*'));
 
@@ -123,10 +125,8 @@ jobs:
           import os, json
 
           readme = open('README.md', 'r').read()
-          # The output is JSON-encoded (result-encoding defaults to json)
           raw = os.environ['ACTIVITY']
           activity = json.loads(raw) if raw.startswith('"') else raw
-          # Strip surrounding quotes if present
           if isinstance(activity, str) and activity.startswith('"'):
               activity = json.loads(activity)
 
