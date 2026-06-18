@@ -1,0 +1,127 @@
+name: Update Profile README
+
+on:
+  schedule:
+    - cron: '0 3 * * *'   # Runs daily at 03:00 UTC
+  workflow_dispatch:        # Allow manual trigger
+
+jobs:
+  update-activity:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate recent activity & top repos
+        uses: actions/github-script@v9
+        id: generate
+        env:
+          USERNAME: ${{ github.repository_owner }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const username = process.env.USERNAME;
+            const sections = [];
+
+            // --- Recent Activity ---
+            const events = await github.rest.activity.listPublicEventsForUser({
+              username: username,
+              per_page: 20
+            });
+
+            const activityLines = [];
+            const seenRepos = new Set();
+            for (const event of events.data) {
+              const repo = event.repo.name.split('/').pop();
+              const type = event.type;
+
+              if (activityLines.length >= 8) break;
+
+              if (type === 'PushEvent') {
+                const msg = (event.payload.commits?.[0]?.message || 'commit').split('\n')[0];
+                if (!seenRepos.has(repo)) {
+                  activityLines.push(`- 📝 Pushed \`${msg}\` in [${repo}](https://github.com/${event.repo.name})`);
+                  seenRepos.add(repo);
+                }
+              } else if (type === 'IssuesEvent') {
+                const title = event.payload.issue?.title || 'an issue';
+                const url = event.payload.issue?.html_url || '#';
+                activityLines.push(`- 🐛 ${event.payload.action} issue [${title}](${url})`);
+              } else if (type === 'PullRequestEvent') {
+                const title = event.payload.pull_request?.title || 'a PR';
+                const url = event.payload.pull_request?.html_url || '#';
+                activityLines.push(`- 🔀 ${event.payload.action} PR [${title}](${url})`);
+              } else if (type === 'WatchEvent') {
+                activityLines.push(`- ⭐ Starred [${repo}](https://github.com/${event.repo.name})`);
+              } else if (type === 'CreateEvent' && event.payload.ref_type === 'repository') {
+                activityLines.push(`- 🆕 Created [${repo}](https://github.com/${event.repo.name})`);
+              }
+            }
+            sections.push('### 🕐 Recent Activity\n' + (activityLines.length > 0 ? activityLines.join('\n') : '- *No recent public activity*'));
+
+            // --- Top Repos (by stars, forks, updated) ---
+            const repos = await github.rest.repos.listForUser({
+              username: username,
+              sort: 'updated',
+              direction: 'desc',
+              per_page: 30,
+              type: 'owner'
+            });
+
+            // Sort by a composite: stars*3 + forks, pick top 6
+            const scored = repos.data
+              .filter(r => !r.fork && r.name !== username) // skip forks & profile repo
+              .map(r => ({
+                name: r.name,
+                desc: (r.description || '').slice(0, 60),
+                url: r.html_url,
+                stars: r.stargazers_count,
+                forks: r.forks_count,
+                lang: r.language,
+                score: r.stargazers_count * 3 + r.forks_count
+              }))
+              .sort((a, b) => b.score - a.score)
+              .slice(0, 6);
+
+            const repoLines = scored.map(r => {
+              const starBadge = r.stars > 0 ? ` ⭐ ${r.stars}` : '';
+              const forkBadge = r.forks > 0 ? ` 🍴 ${r.forks}` : '';
+              const langBadge = r.lang ? ` \`${r.lang}\`` : '';
+              return `- **[${r.name}](${r.url})**${langBadge}${starBadge}${forkBadge} — ${r.desc}`;
+            });
+            sections.push('### 🏆 Top Repos\n' + (repoLines.length > 0 ? repoLines.join('\n') : '- *No repos yet*'));
+
+            return sections.join('\n\n');
+
+      - name: Update README
+        run: |
+          python3 -c "
+          import re, os
+
+          readme = open('README.md', 'r').read()
+          activity = os.environ['ACTIVITY']
+
+          start = '<!-- RECENT_ACTIVITY:START -->'
+          end = '<!-- RECENT_ACTIVITY:END -->'
+
+          si = readme.find(start)
+          ei = readme.find(end)
+
+          if si != -1 and ei != -1:
+              readme = readme[:si + len(start)] + '\n' + activity + '\n' + readme[ei:]
+              open('README.md', 'w').write(readme)
+              print('README updated')
+          else:
+              print('Markers not found')
+          "
+        env:
+          ACTIVITY: ${{ steps.generate.outputs.result }}
+
+      - name: Commit & Push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git diff --cached --quiet && echo "No changes" || (git commit -m "🔄 Update profile activity & top repos" && git push)
