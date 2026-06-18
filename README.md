@@ -5,7 +5,7 @@ $ whoami
 > jesse zen | Java Backend Dev
 
 $ cat interests.txt
-> Backend Architecture · AI Integration · Distributed Systems
+> Backend Architecture · AI Integration · Distributed Systems · LeetCode
 
 $ echo $STATUS
 > 🟢 open to find a job 
@@ -27,7 +27,7 @@ $ echo $STATUS
 
 ## 📈 Contribution Graph
 
-![Contribution Graph](https://githly.vercel.app/api/contribution?username=stuAccount&hide_border=true)
+![Contribution Graph](https://gitlyy.vercel.app/api/contribution?username=stuAccount&hide_border=true)
 
 ---
 
