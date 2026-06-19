@@ -2,28 +2,13 @@
 
 <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=18&duration=3000&pause=800&color=7EE787&background=0D111700&center=true&vCenter=true&repeat=false&random=false&width=600&lines=jesse+zen+%40+github" alt="jesse zen @ github" />
 
+<a href="https://stuaccount.github.io/">
+  <img src="https://img.shields.io/badge/%24_open-stuaccount.github.io-7EE787?style=flat-square&labelColor=0d1117&fontFamily=JetBrains%20Mono" alt="Homepage" />
+</a>
+
 </div>
 
-```bash
-# ┌──────────────────────────────────────────────────────────┐
-# │  ● ● ●  terminal — jesse zen                             │
-# ├──────────────────────────────────────────────────────────┤
-# │                                                          │
-# │  jesse@github:~$ whoami                                  │
-# │  > Jesse Zen — Java Backend Developer                    │
-# │                                                          │
-# │  jesse@github:~$ cat ~/interests.txt                     │
-# │  > Backend Architecture · AI Integration                 │
-# │  > Distributed Systems · LeetCode · Vim                  │
-# │                                                          │
-# │  jesse@github:~$ echo $JOB_STATUS                        │
-# │  > 🟢 Open to work                                       │
-# │                                                          │
-# │  jesse@github:~$ cat ~/philosophy.txt                    │
-# │  > "Ship beats perfect — learn by building."             │
-# │                                                          │
-# └──────────────────────────────────────────────────────────┘
-```
+<img src="https://stuaccount.github.io/terminal-header.svg" width="680" />
 
 ---
 
