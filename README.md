@@ -2,13 +2,13 @@
 
 <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=18&duration=3000&pause=800&color=7EE787&background=0D111700&center=true&vCenter=true&repeat=false&random=false&width=600&lines=jesse+zen+%40+github" alt="jesse zen @ github" />
 
-<a href="https://stuaccount.github.io/">
-  <img src="https://img.shields.io/badge/%24_open-stuaccount.github.io-7EE787?style=flat-square&labelColor=0d1117&fontFamily=JetBrains%20Mono" alt="Homepage" />
+<a href="https://jessezen.github.io/">
+  <img src="https://img.shields.io/badge/%24_open-jessezen.github.io-7EE787?style=flat-square&labelColor=0d1117&fontFamily=JetBrains%20Mono" alt="Homepage" />
 </a>
 
 </div>
 
-<img src="https://stuaccount.github.io/terminal-header.svg" width="680" />
+<img src="https://jessezen.github.io/terminal-header.svg" width="680" />
 
 ---
 
@@ -30,12 +30,12 @@
 ### 📊 `$ git stats --summary`
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=stuAccount&show_icons=true&theme=github_dark&hide_border=true&rank_icon=percentile&bg_color=0d1117" alt="stats" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=stuAccount&layout=compact&theme=github_dark&hide_border=true&langs_count=8&bg_color=0d1117" alt="languages" />
+  <img src="https://github-readme-stats.vercel.app/api?username=jessezen&show_icons=true&theme=github_dark&hide_border=true&rank_icon=percentile&bg_color=0d1117" alt="stats" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=jessezen&layout=compact&theme=github_dark&hide_border=true&langs_count=8&bg_color=0d1117" alt="languages" />
 </p>
 
 <p align="center">
-  <img src="https://streak-stats.demolab.com/?user=stuAccount&theme=github-dark-blue&hide_border=true&ring=58a6ff&fire=ffa657&currStreakNum=58a6ff&sideNums=8b949e&currStreakLabel=8b949e&sideLabels=8b949e&dates=8b949e&background=0d1117" alt="streak" />
+  <img src="https://streak-stats.demolab.com/?user=jessezen&theme=github-dark-blue&hide_border=true&ring=58a6ff&fire=ffa657&currStreakNum=58a6ff&sideNums=8b949e&currStreakLabel=8b949e&sideLabels=8b949e&dates=8b949e&background=0d1117" alt="streak" />
 </p>
 
 ---
@@ -43,7 +43,7 @@
 ### 📈 `$ cat ~/contributions.log`
 
 <p align="center">
-  <img src="https://gitlyy.vercel.app/api/contribution?username=stuAccount&hide_border=true" alt="contributions" />
+  <img src="https://gitlyy.vercel.app/api/contribution?username=jessezen&hide_border=true" alt="contributions" />
 </p>
 
 ---
@@ -58,7 +58,7 @@
 <div align="center">
 
 ```text
-# Crafted with ☕ and Vim  ·  stuAccount @ github
+# Crafted with ☕ and Vim  ·  jessezen @ github
 ```
 
 </div>
