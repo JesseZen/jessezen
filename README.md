@@ -51,6 +51,16 @@
 ### 🚀 `$ git log --oneline`
 
 <!-- RECENT_ACTIVITY:START -->
+### 🕐 Recent Activity
+- *No recent public activity*
+
+### 🏆 Top Repos
+- **[codex-app-proxy](https://github.com/JesseZen/codex-app-proxy)** `TypeScript` ⭐ 3 — A simple codex app proxy. 
+- **[bookamine](https://github.com/JesseZen/bookamine)** `Python`
+- **[jessezen.github.io](https://github.com/JesseZen/jessezen.github.io)** `HTML` — A portfolio
+- **[interview-pilot-frontend](https://github.com/JesseZen/interview-pilot-frontend)** `TypeScript`
+- **[jessezen](https://github.com/JesseZen/jessezen)**
+- **[scnu-campus-community](https://github.com/JesseZen/scnu-campus-community)** `Java` — SCNU 校园社区平台
 <!-- RECENT_ACTIVITY:END -->
 
 ---
