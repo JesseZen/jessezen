@@ -52,11 +52,11 @@
 
 <!-- RECENT_ACTIVITY:START -->
 ### 🕐 Recent Activity
-- *No recent public activity*
+- 🔀 closed PR [a PR](#)
 
 ### 🏆 Top Repos
 - **[codex-app-proxy](https://github.com/JesseZen/codex-app-proxy)** `TypeScript` ⭐ 3 — A simple codex app proxy. 
-- **[bookamine](https://github.com/JesseZen/bookamine)** `Python`
+- **[bookamine](https://github.com/JesseZen/bookamine)** `Python` — A Self-hosted audiobook/ebook sync tool for doomscro…
 - **[jessezen](https://github.com/JesseZen/jessezen)**
 - **[jessezen.github.io](https://github.com/JesseZen/jessezen.github.io)** `HTML` — A portfolio
 - **[interview-pilot-frontend](https://github.com/JesseZen/interview-pilot-frontend)** `TypeScript`
