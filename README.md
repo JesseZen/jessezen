@@ -56,11 +56,11 @@
 
 ### 🏆 Top Repos
 - **[agent-inn](https://github.com/JesseZen/agent-inn)** `TypeScript` ⭐ 3 — A TUI-driven orchestrator for agent CLI proxying and…
-- **[coleet](https://github.com/JesseZen/coleet)** `TypeScript`
+- **[jessezen.github.io](https://github.com/JesseZen/jessezen.github.io)** `HTML` — A portfolio
 - **[jessezen](https://github.com/JesseZen/jessezen)**
+- **[coleet](https://github.com/JesseZen/coleet)** `TypeScript`
 - **[scnu-campus-community](https://github.com/JesseZen/scnu-campus-community)** `Java` — SCNU 校园社区平台
 - **[bookamine](https://github.com/JesseZen/bookamine)** `Python` — A Self-hosted audiobook/ebook sync tool for doomscro…
-- **[jessezen.github.io](https://github.com/JesseZen/jessezen.github.io)** `HTML` — A portfolio
 <!-- RECENT_ACTIVITY:END -->
 
 ---
