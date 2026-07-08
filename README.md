@@ -56,9 +56,9 @@
 
 ### 🏆 Top Repos
 - **[agent-inn](https://github.com/JesseZen/agent-inn)** `TypeScript` ⭐ 3 — A TUI-driven orchestrator for agent CLI proxying and…
+- **[jessezen](https://github.com/JesseZen/jessezen)**
 - **[coleet](https://github.com/JesseZen/coleet)** `TypeScript` — A powerful LeetCode practice app
 - **[kigen](https://github.com/JesseZen/kigen)** `Go` — Terminal-first deadline decision support CLI
-- **[jessezen](https://github.com/JesseZen/jessezen)**
 - **[jessezen.github.io](https://github.com/JesseZen/jessezen.github.io)** `HTML` — A portfolio
 - **[scnu-campus-community](https://github.com/JesseZen/scnu-campus-community)** `Java` — SCNU 校园社区平台
 <!-- RECENT_ACTIVITY:END -->
