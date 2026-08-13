@@ -55,7 +55,7 @@
 - *No recent public activity*
 
 ### 🏆 Top Repos
-- **[agent-inn](https://github.com/JesseZen/agent-inn)** `TypeScript` ⭐ 3 — A TUI-driven orchestrator for agent CLI proxying and…
+- **[agent-harbor](https://github.com/JesseZen/agent-harbor)** `TypeScript` ⭐ 3 — A TUI-driven orchestrator for agent CLI proxying and…
 - **[jessezen](https://github.com/JesseZen/jessezen)**
 - **[scnu-campus-community](https://github.com/JesseZen/scnu-campus-community)** `Java` — SCNU 校园社区平台
 - **[coleet](https://github.com/JesseZen/coleet)** `TypeScript` — A powerful LeetCode practice app
